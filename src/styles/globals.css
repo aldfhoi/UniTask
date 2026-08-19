@@ -20,53 +20,42 @@
 .stripe-bg-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
-}
-
-.stripe-gradient-hero {
-  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.07) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 60%);
+    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
 }
 
 .stripe-card {
-  background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.9);
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 1rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .stripe-card:hover {
-  border-color: rgba(203, 213, 225, 1);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
   transform: translateY(-1px);
 }
 
 .stripe-pill-btn {
   background-color: #059669;
-  color: #ffffff;
+  color: #ffffff !important;
   border-radius: 9999px;
-  padding: 0.55rem 1.25rem;
-  font-weight: 500;
-  font-size: 0.875rem;
+  padding: 0.6rem 1.3rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+  gap: 0.4rem;
+  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.25);
   transition: all 0.15s ease;
 }
 
 .stripe-pill-btn:hover {
   background-color: #047857;
-  box-shadow: 0 4px 8px rgba(5, 150, 105, 0.25);
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
   transform: translateY(-0.5px);
-}
-
-.ai-glow-card {
-  background: linear-gradient(135deg, rgba(245, 243, 255, 0.8) 0%, rgba(238, 242, 255, 0.8) 100%);
-  border: 1px solid rgba(199, 210, 254, 0.8);
 }
 
 /* Custom scrollbar */

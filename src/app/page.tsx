@@ -56,38 +56,43 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
-      {/* Hero Welcome Banner (High-contrast Stripe Aesthetic) */}
-      <div className="stripe-card p-6 md:p-8 bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-950 text-white relative overflow-hidden shadow-lg border border-emerald-900/50">
-        {/* Background decorative glow */}
-        <div className="absolute right-0 top-0 -mt-8 -mr-8 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute left-1/2 bottom-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none"></div>
+      {/* Hero Welcome Banner (Clean Stripe White Card with Vibrant Gradient Glow & Crisp Dark Text) */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-7 md:p-9 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        {/* Subtle Stripe mesh gradient background behind text */}
+        <div className="absolute right-0 top-0 w-96 h-96 bg-gradient-to-br from-emerald-100/60 via-indigo-100/50 to-teal-50/40 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16"></div>
+        <div className="absolute left-1/3 bottom-0 w-64 h-64 bg-amber-50/60 rounded-full blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-bold backdrop-blur-md border border-emerald-400/40 mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+          {/* Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-extrabold border border-emerald-200/80 mb-3 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             <span>대학생 전용 통합 AI 워크스페이스</span>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-white mb-2">
-            과제 시작부터 발표까지, AI와 함께.
+          {/* Main Title - Dark & Ultra-Crisp */}
+          <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-slate-900 mb-2.5">
+            과제 시작부터 발표까지, <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 bg-clip-text text-transparent">AI와 함께.</span>
           </h1>
-          <p className="text-sm text-slate-100 leading-relaxed mb-6 font-medium">
+
+          {/* Description - High-contrast charcoal text */}
+          <p className="text-sm text-slate-600 font-medium leading-relaxed mb-6">
             과제를 분석하고, 팀원과 협업하고, 발표까지 준비하세요. 교수님의 요구사항 분석부터 AI 실전 발표 연습까지 원스톱으로 지원합니다.
           </p>
 
+          {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/assignments"
-              className="px-5 py-2.5 rounded-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black text-xs shadow-md inline-flex items-center gap-2 group transition-all"
+              className="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md inline-flex items-center gap-2 group transition-all"
             >
               <span>새 과제 AI 분석하기</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
               href="/practice"
-              className="px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs font-bold backdrop-blur-sm border border-white/30 inline-flex items-center gap-1.5 transition-all shadow-xs"
+              className="px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs border border-slate-300 inline-flex items-center gap-1.5 transition-all shadow-xs"
             >
-              <Mic className="w-4 h-4 text-emerald-300" />
+              <Mic className="w-4 h-4 text-emerald-600" />
               <span>AI 발표 연습 시작</span>
             </Link>
           </div>
@@ -102,7 +107,7 @@ export default function DashboardPage() {
             <div>
               <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                 <span>진행 중인 프로젝트</span>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800">
+                <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800">
                   {projects.length}
                 </span>
               </h2>
