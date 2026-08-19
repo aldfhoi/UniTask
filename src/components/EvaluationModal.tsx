@@ -36,7 +36,7 @@ export function EvaluationModal({ report, onClose, onRetry }: EvaluationModalPro
       <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors"
+          className="absolute top-5 right-5 text-slate-600 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -69,7 +69,7 @@ export function EvaluationModal({ report, onClose, onRetry }: EvaluationModalPro
 
         {/* 6 Metrics Grid */}
         <div className="mb-6">
-          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">6대 항목별 역량 분석</h4>
+          <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">6대 항목별 역량 분석</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {metricsList.map((m, idx) => (
               <div key={idx} className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
@@ -83,7 +83,7 @@ export function EvaluationModal({ report, onClose, onRetry }: EvaluationModalPro
                     style={{ width: `${m.score}%` }}
                   ></div>
                 </div>
-                <p className="text-[10px] text-slate-400 truncate">{m.desc}</p>
+                <p className="text-[10px] text-slate-600 truncate">{m.desc}</p>
               </div>
             ))}
           </div>
@@ -91,7 +91,7 @@ export function EvaluationModal({ report, onClose, onRetry }: EvaluationModalPro
 
         {/* Priority Action Items (🔴 우선 개선, 🟡 보완 권장, 🟢 잘하고 있음) */}
         <div className="space-y-3 mb-6">
-          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">우선순위별 피드백</h4>
+          <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wider">우선순위별 피드백</h4>
           
           {/* High Priority */}
           {report.priorityImprovements.map((item, i) => (

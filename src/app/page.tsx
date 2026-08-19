@@ -56,38 +56,38 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
-      {/* Hero Welcome Banner (Stripe Aesthetic) */}
-      <div className="stripe-card p-6 md:p-8 bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white relative overflow-hidden shadow-stripe">
+      {/* Hero Welcome Banner (High-contrast Stripe Aesthetic) */}
+      <div className="stripe-card p-6 md:p-8 bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-950 text-white relative overflow-hidden shadow-lg border border-emerald-900/50">
         {/* Background decorative glow */}
         <div className="absolute right-0 top-0 -mt-8 -mr-8 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute left-1/2 bottom-0 w-64 h-64 bg-indigo-500/15 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute left-1/2 bottom-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold backdrop-blur-md border border-emerald-400/30 mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-bold backdrop-blur-md border border-emerald-400/40 mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
             <span>대학생 전용 통합 AI 워크스페이스</span>
           </div>
 
           <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-white mb-2">
             과제 시작부터 발표까지, AI와 함께.
           </h1>
-          <p className="text-sm text-slate-300 leading-relaxed mb-6 font-normal">
+          <p className="text-sm text-slate-100 leading-relaxed mb-6 font-medium">
             과제를 분석하고, 팀원과 협업하고, 발표까지 준비하세요. 교수님의 요구사항 분석부터 AI 실전 발표 연습까지 원스톱으로 지원합니다.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/assignments"
-              className="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md inline-flex items-center gap-2 group transition-all"
+              className="px-5 py-2.5 rounded-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black text-xs shadow-md inline-flex items-center gap-2 group transition-all"
             >
               <span>새 과제 AI 분석하기</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
               href="/practice"
-              className="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold backdrop-blur-sm border border-white/20 inline-flex items-center gap-1.5 transition-all"
+              className="px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs font-bold backdrop-blur-sm border border-white/30 inline-flex items-center gap-1.5 transition-all shadow-xs"
             >
-              <Mic className="w-4 h-4 text-emerald-400" />
+              <Mic className="w-4 h-4 text-emerald-300" />
               <span>AI 발표 연습 시작</span>
             </Link>
           </div>
@@ -100,17 +100,17 @@ export default function DashboardPage() {
         <div className="lg:col-span-8 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                 <span>진행 중인 프로젝트</span>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800">
                   {projects.length}
                 </span>
               </h2>
-              <p className="text-xs text-slate-500">현재 수강 중인 과목의 과제 및 팀프로젝트 현황</p>
+              <p className="text-xs text-slate-600 font-medium">현재 수강 중인 과목의 과제 및 팀프로젝트 현황</p>
             </div>
             <Link
               href="/assignments"
-              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 hover:underline"
+              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 hover:underline"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>새 과제 등록</span>
@@ -130,15 +130,15 @@ export default function DashboardPage() {
           <div className="stripe-card p-5 bg-white">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
                   <Zap className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-xs text-slate-900">오늘 할 일 (AI 추천)</h3>
-                  <p className="text-[10px] text-slate-400">과제 진행 상황 기반 자동 추천</p>
+                  <h3 className="font-extrabold text-xs text-slate-900">오늘 할 일 (AI 추천)</h3>
+                  <p className="text-[11px] text-slate-500 font-semibold">과제 진행 상황 기반 자동 추천</p>
                 </div>
               </div>
-              <span className="text-xs font-bold text-emerald-700">
+              <span className="text-xs font-black text-emerald-700">
                 {todayTodos.filter(t => t.done).length}/{todayTodos.length}
               </span>
             </div>
@@ -150,20 +150,20 @@ export default function DashboardPage() {
                   onClick={() => toggleTodo(todo.id)}
                   className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-start gap-2.5 group ${
                     todo.done
-                      ? 'bg-slate-50 border-slate-200/60 opacity-60'
-                      : 'bg-white border-slate-200/80 hover:border-emerald-300'
+                      ? 'bg-slate-50 border-slate-200 opacity-60'
+                      : 'bg-white border-slate-300 hover:border-emerald-500 shadow-2xs'
                   }`}
                 >
                   {todo.done ? (
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   ) : (
-                    <Circle className="w-4 h-4 text-slate-400 group-hover:text-emerald-500 shrink-0 mt-0.5" />
+                    <Circle className="w-4 h-4 text-slate-500 group-hover:text-emerald-600 shrink-0 mt-0.5" />
                   )}
                   <div className="flex-1">
-                    <p className={`text-xs font-medium leading-snug ${todo.done ? 'line-through text-slate-400' : 'text-slate-800'}`}>
+                    <p className={`text-xs font-semibold leading-snug ${todo.done ? 'line-through text-slate-500' : 'text-slate-900'}`}>
                       {todo.text}
                     </p>
-                    <span className="text-[10px] font-semibold text-slate-400 block mt-0.5">
+                    <span className="text-[10px] font-bold text-slate-500 block mt-0.5">
                       {todo.course}
                     </span>
                   </div>
@@ -173,10 +173,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Urgent Deadlines Widget */}
-          <div className="stripe-card p-5 bg-gradient-to-br from-rose-50/60 via-amber-50/40 to-white border-rose-100">
+          <div className="stripe-card p-5 bg-gradient-to-br from-rose-50 via-amber-50 to-white border-rose-200">
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="w-4 h-4 text-rose-600" />
-              <h3 className="font-bold text-xs text-slate-900">마감 임박 과제</h3>
+              <h3 className="font-extrabold text-xs text-slate-900">마감 임박 과제</h3>
             </div>
 
             <div className="space-y-2.5">
@@ -184,13 +184,13 @@ export default function DashboardPage() {
                 <Link
                   key={p.id}
                   href={`/projects/${p.id}`}
-                  className="p-2.5 rounded-xl bg-white/80 border border-rose-200/80 hover:border-rose-300 flex items-center justify-between transition-all group"
+                  className="p-2.5 rounded-xl bg-white border border-rose-200 hover:border-rose-400 flex items-center justify-between transition-all group shadow-2xs"
                 >
                   <div className="truncate pr-2">
                     <p className="text-xs font-bold text-slate-900 group-hover:text-rose-700 truncate">{p.title}</p>
-                    <p className="text-[11px] text-slate-500">{p.course} · 마감 {p.deadline}</p>
+                    <p className="text-[11px] text-slate-600 font-medium">{p.course} · 마감 {p.deadline}</p>
                   </div>
-                  <span className="text-xs font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 shrink-0">
+                  <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 shrink-0">
                     {p.dDay}
                   </span>
                 </Link>
@@ -202,22 +202,22 @@ export default function DashboardPage() {
 
       {/* Fast Action Feature Cards (Notion-style 3 Pillars) */}
       <div className="pt-2">
-        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+        <h3 className="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-3">
           UniTask 핵심 기능 바로가기
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             href="/assignments"
-            className="stripe-card p-5 bg-white hover:border-emerald-300 group flex items-start gap-4"
+            className="stripe-card p-5 bg-white hover:border-emerald-400 group flex items-start gap-4 shadow-xs"
           >
-            <div className="w-10 h-10 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-100 border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors">
                 1. 과제 분석 AI
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-600 font-medium mt-1 leading-relaxed">
                 교수님 안내문을 업로드하면 필수 요구사항과 놓치기 쉬운 주의사항, 작업 체크리스트를 자동 생성합니다.
               </p>
             </div>
@@ -225,16 +225,16 @@ export default function DashboardPage() {
 
           <Link
             href="/resources"
-            className="stripe-card p-5 bg-white hover:border-emerald-300 group flex items-start gap-4"
+            className="stripe-card p-5 bg-white hover:border-emerald-400 group flex items-start gap-4 shadow-xs"
           >
-            <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-100 border border-emerald-200 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <FolderOpen className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
                 2. 팀 자료 AI 정리 & 중복 감지
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-600 font-medium mt-1 leading-relaxed">
                 팀원들이 올린 논문과 PDF를 분석하여 중복 조사를 찾고, 보고서 목차에 맞게 자료를 유기적으로 연결합니다.
               </p>
             </div>
@@ -242,16 +242,16 @@ export default function DashboardPage() {
 
           <Link
             href="/practice"
-            className="stripe-card p-5 bg-white hover:border-emerald-300 group flex items-start gap-4"
+            className="stripe-card p-5 bg-white hover:border-emerald-400 group flex items-start gap-4 shadow-xs"
           >
-            <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-2xl bg-amber-100 border border-amber-200 text-amber-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
                 3. AI 발표 연습 & 실전 평가
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-600 font-medium mt-1 leading-relaxed">
                 슬라이드별 대본과 예상 시간을 확인하고, 교수님 질문 모드로 발표를 시뮬레이션하여 6대 지표 평가를 받으세요.
               </p>
             </div>

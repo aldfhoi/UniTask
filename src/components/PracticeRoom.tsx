@@ -218,7 +218,7 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
               {/* Script Teleprompter Box */}
               <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                     발표 대본 (Teleprompter)
                   </span>
                   <span className="text-[10px] text-emerald-600 font-semibold">한국어 구어체</span>
@@ -284,9 +284,9 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
               </button>
 
               <div>
-                <div className="text-[11px] font-bold text-slate-400 uppercase">발표 경과 시간</div>
+                <div className="text-[11px] font-bold text-slate-600 uppercase">발표 경과 시간</div>
                 <div className="text-xl font-black text-slate-900 font-mono">
-                  {formatTime(elapsedSeconds)} <span className="text-xs font-normal text-slate-400">/ {formatTime(deck.estimatedTotalSeconds)}</span>
+                  {formatTime(elapsedSeconds)} <span className="text-xs font-normal text-slate-600">/ {formatTime(deck.estimatedTotalSeconds)}</span>
                 </div>
               </div>
             </div>
@@ -301,14 +301,14 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                {isMicActive ? <Mic className="w-4 h-4 text-rose-600" /> : <MicOff className="w-4 h-4 text-slate-400" />}
+                {isMicActive ? <Mic className="w-4 h-4 text-rose-600" /> : <MicOff className="w-4 h-4 text-slate-600" />}
                 <span>{isMicActive ? '음성 인식 중...' : '마이크 켜기'}</span>
               </button>
 
               <button
                 onClick={() => setIsTtsActive(!isTtsActive)}
                 className={`p-2 rounded-xl border text-xs font-medium ${
-                  isTtsActive ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-slate-50 border-slate-200 text-slate-400'
+                  isTtsActive ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-slate-50 border-slate-200 text-slate-600'
                 }`}
                 title="AI 음성 질문 읽어주기"
               >
@@ -339,7 +339,7 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
                     {mode === 'professor' ? '교수님 돌발 질문' : mode === 'tough' ? '심층 압박 질문' : '실전 질의응답'}
                   </h4>
                 </div>
-                <span className="text-[11px] font-bold text-slate-400">
+                <span className="text-[11px] font-bold text-slate-600">
                   질문 {currentQuestionIdx + 1} / {questions.length}
                 </span>
               </div>
@@ -354,7 +354,7 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
               {/* Past QnA mini log */}
               {qnaLog.length > 0 && (
                 <div className="space-y-2 mb-4 max-h-32 overflow-y-auto">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase">이전 답변 완료 목록</span>
+                  <span className="text-[10px] font-bold text-slate-600 uppercase">이전 답변 완료 목록</span>
                   {qnaLog.map((log, i) => (
                     <div key={i} className="p-2 rounded-lg bg-slate-50 border border-slate-200/70 text-[11px]">
                       <p className="font-semibold text-slate-700 truncate">Q: {log.q}</p>
@@ -384,7 +384,7 @@ export function PracticeRoom({ deck, initialMode = 'professor' }: PracticeRoomPr
               </div>
 
               <div className="flex items-center justify-between mt-2">
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-slate-600">
                   {isMicActive ? '말씀이 끝나면 버튼을 눌러주세요.' : '텍스트 또는 음성으로 답변'}
                 </span>
                 <button

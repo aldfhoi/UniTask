@@ -191,13 +191,13 @@ export default function ResourcesPage() {
                   {res.title}
                 </h3>
                 
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-600 mt-0.5">
                   업로더: <strong className="text-slate-700">{res.uploaderName}</strong> · {res.uploadDate}
                 </p>
 
                 {/* AI Summary Box */}
                 <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700 leading-relaxed">
-                  <span className="text-[10px] font-bold text-slate-400 block mb-1 uppercase">AI 핵심 요약</span>
+                  <span className="text-[10px] font-bold text-slate-600 block mb-1 uppercase">AI 핵심 요약</span>
                   <p className="font-medium text-slate-800">{res.summary}</p>
                 </div>
 
@@ -213,7 +213,7 @@ export default function ResourcesPage() {
                 {/* Evidence Points */}
                 {res.evidencePoints.length > 0 && (
                   <div className="mt-3 text-xs space-y-1">
-                    <span className="text-[10px] font-bold text-slate-400 block uppercase">핵심 데이터 / 근거</span>
+                    <span className="text-[10px] font-bold text-slate-600 block uppercase">핵심 데이터 / 근거</span>
                     {res.evidencePoints.map((ep, i) => (
                       <p key={i} className="text-[11px] text-slate-600 pl-2 border-l-2 border-emerald-500 font-mono">
                         {ep}
@@ -225,7 +225,7 @@ export default function ResourcesPage() {
 
               {/* Bottom Citation & Mapping */}
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
-                <p className="truncate text-slate-400">
+                <p className="truncate text-slate-600">
                   📚 <em>{res.sourceCitation}</em>
                 </p>
                 <div className="mt-1 flex items-center justify-between text-emerald-700 font-semibold">
@@ -267,7 +267,7 @@ export default function ResourcesPage() {
                   </div>
 
                   <div className="text-right sm:text-right shrink-0">
-                    <span className="text-[10px] text-slate-400 font-bold block">활용 자료</span>
+                    <span className="text-[10px] text-slate-600 font-bold block">활용 자료</span>
                     <span className="text-[11px] font-semibold text-slate-700">
                       {item.sourceResources.join(', ')}
                     </span>

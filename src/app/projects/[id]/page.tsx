@@ -47,7 +47,7 @@ export default function ProjectWorkspacePage() {
 
   if (!project) {
     return (
-      <div className="p-12 text-center text-slate-400">
+      <div className="p-12 text-center text-slate-600">
         프로젝트를 불러오는 중...
       </div>
     );
@@ -169,7 +169,7 @@ export default function ProjectWorkspacePage() {
 
         <div className="stripe-card p-4 bg-white flex items-center justify-between">
           <div>
-            <span className="text-[11px] text-slate-400 font-bold uppercase">완료된 태스크</span>
+            <span className="text-[11px] text-slate-600 font-bold uppercase">완료된 태스크</span>
             <p className="text-base font-black text-slate-900">
               {project.tasks.filter(t => t.status === 'done').length} / {project.tasks.length}
             </p>
@@ -179,7 +179,7 @@ export default function ProjectWorkspacePage() {
 
         <div className="stripe-card p-4 bg-white flex items-center justify-between">
           <div>
-            <span className="text-[11px] text-slate-400 font-bold uppercase">참여 팀원</span>
+            <span className="text-[11px] text-slate-600 font-bold uppercase">참여 팀원</span>
             <p className="text-base font-black text-slate-900">{project.members.length}명</p>
           </div>
           <Users className="w-6 h-6 text-indigo-500" />
@@ -187,7 +187,7 @@ export default function ProjectWorkspacePage() {
 
         <div className="stripe-card p-4 bg-white flex items-center justify-between">
           <div>
-            <span className="text-[11px] text-slate-400 font-bold uppercase">AI 어시스턴트</span>
+            <span className="text-[11px] text-slate-600 font-bold uppercase">AI 어시스턴트</span>
             <Link href="/assistant" className="text-xs font-bold text-indigo-600 hover:underline block mt-0.5">
               자료 기반 RAG 질의 💬
             </Link>
@@ -230,7 +230,7 @@ export default function ProjectWorkspacePage() {
           </button>
         </div>
 
-        <span className="text-xs text-slate-400 font-medium hidden sm:inline">
+        <span className="text-xs text-slate-600 font-medium hidden sm:inline">
           드래그 또는 상태 변경으로 실시간 저장됩니다.
         </span>
       </div>
@@ -372,7 +372,7 @@ export default function ProjectWorkspacePage() {
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-slate-400">등록된 과제 분석 데이터가 없습니다.</p>
+              <p className="text-xs text-slate-600">등록된 과제 분석 데이터가 없습니다.</p>
             )}
           </div>
         </div>

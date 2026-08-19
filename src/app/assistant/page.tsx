@@ -125,7 +125,7 @@ export default function AssistantPage() {
 
         <button
           onClick={handleClearHistory}
-          className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          className="p-2 rounded-xl text-slate-600 hover:text-slate-600 hover:bg-slate-100 transition-colors"
           title="대화 기록 초기화"
         >
           <RotateCcw className="w-4 h-4" />
@@ -135,14 +135,14 @@ export default function AssistantPage() {
       {/* Chat Messages Scroll Area */}
       <div className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.length === 0 && (
-          <div className="p-8 text-center text-slate-400 stripe-card bg-white max-w-lg mx-auto mt-12">
+          <div className="p-8 text-center text-slate-600 stripe-card bg-white max-w-lg mx-auto mt-12">
             <Bot className="w-10 h-10 mx-auto text-indigo-400 mb-2" />
             <h3 className="text-sm font-bold text-slate-700">프로젝트 AI 튜터와 대화를 시작하세요</h3>
-            <p className="text-xs text-slate-400 mt-1 mb-4">
+            <p className="text-xs text-slate-600 mt-1 mb-4">
               업로드된 자료의 빈틈을 찾거나, 슬라이드 구조 추천, 서론 초안 작성 등 무엇이든 질문하세요.
             </p>
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">추천 질문:</span>
+              <span className="text-[10px] font-bold text-slate-600 uppercase">추천 질문:</span>
               {quickPrompts.slice(0, 2).map((qp, i) => (
                 <button
                   key={i}
@@ -188,7 +188,7 @@ export default function AssistantPage() {
                 </div>
               )}
 
-              <div className={`text-[10px] mt-1 text-right ${msg.sender === 'user' ? 'text-slate-400' : 'text-slate-400'}`}>
+              <div className={`text-[10px] mt-1 text-right ${msg.sender === 'user' ? 'text-slate-600' : 'text-slate-600'}`}>
                 {msg.timestamp}
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function AssistantPage() {
 
       {/* Quick Prompt Chips */}
       <div className="flex items-center gap-2 overflow-x-auto py-1 text-xs">
-        <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
+        <span className="text-[11px] font-bold text-slate-600 shrink-0 flex items-center gap-1">
           <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
           빠른 질문:
         </span>

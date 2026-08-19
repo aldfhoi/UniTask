@@ -144,7 +144,7 @@ export default function PresentationPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="stripe-card p-4 bg-white flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">총 슬라이드 수</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase">총 슬라이드 수</span>
                 <p className="text-xl font-black text-slate-900 mt-0.5">{deck.totalSlides}장</p>
               </div>
               <FileText className="w-6 h-6 text-indigo-500" />
@@ -152,7 +152,7 @@ export default function PresentationPage() {
 
             <div className="stripe-card p-4 bg-white flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">⏱ 총 예상 발표 시간</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase">⏱ 총 예상 발표 시간</span>
                 <p className="text-xl font-black text-emerald-700 mt-0.5">{formatTotalTime(deck.estimatedTotalSeconds)}</p>
               </div>
               <Clock className="w-6 h-6 text-emerald-500" />
@@ -160,7 +160,7 @@ export default function PresentationPage() {
 
             <div className="stripe-card p-4 bg-white flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">팀원별 배정</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase">팀원별 배정</span>
                 <p className="text-xs font-bold text-slate-700 mt-1">
                   {Array.from(new Set(deck.slides.map(s => s.speakerName))).join(', ')}
                 </p>
@@ -190,7 +190,7 @@ export default function PresentationPage() {
                     <div className="flex items-center gap-3 text-xs">
                       {/* Speaker Selector */}
                       <div className="flex items-center gap-1">
-                        <span className="text-slate-400 font-medium">발표자:</span>
+                        <span className="text-slate-600 font-medium">발표자:</span>
                         <select
                           value={slide.speakerName}
                           onChange={(e) => handleChangeSpeaker(slide.slideNumber, e.target.value)}
@@ -245,7 +245,7 @@ export default function PresentationPage() {
                       </div>
                     ) : (
                       <div className="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 group/script relative">
-                        <div className="flex items-center justify-between mb-1 text-[10px] text-slate-400 font-bold uppercase">
+                        <div className="flex items-center justify-between mb-1 text-[10px] text-slate-600 font-bold uppercase">
                           <span>발표 멘트</span>
                           <button
                             onClick={() => handleStartEdit(slide)}
@@ -267,10 +267,10 @@ export default function PresentationPage() {
           </div>
         </div>
       ) : (
-        <div className="stripe-card p-12 bg-white text-center text-slate-400">
-          <Mic className="w-12 h-12 mx-auto text-slate-300 mb-3" />
+        <div className="stripe-card p-12 bg-white text-center text-slate-600">
+          <Mic className="w-12 h-12 mx-auto text-slate-600 mb-3" />
           <h3 className="text-sm font-bold text-slate-700 mb-1">발표 대본이 아직 생성되지 않았습니다</h3>
-          <p className="text-xs text-slate-400 mb-4 max-w-sm mx-auto">
+          <p className="text-xs text-slate-600 mb-4 max-w-sm mx-auto">
             [AI 대본 생성] 버튼을 누르면 업로드된 팀원 자료와 과제 목표를 바탕으로 슬라이드별 대본을 구성합니다.
           </p>
           <button

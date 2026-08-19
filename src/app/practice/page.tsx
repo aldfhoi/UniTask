@@ -65,12 +65,12 @@ export default function PracticePage() {
               {latestEval.overallScore}점
             </div>
             <div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase block">최근 발표 준비도</span>
+              <span className="text-[10px] font-bold text-slate-600 uppercase block">최근 발표 준비도</span>
               <p className="text-xs font-bold text-slate-800 group-hover:text-emerald-700">
                 {latestEval.readinessPercent}% 달성 (리포트 보기)
               </p>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 ml-1" />
+            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-emerald-600 ml-1" />
           </button>
         )}
       </div>
@@ -79,10 +79,10 @@ export default function PracticePage() {
       {deck ? (
         <PracticeRoom deck={deck} initialMode="professor" />
       ) : (
-        <div className="stripe-card p-12 bg-white text-center text-slate-400">
-          <Mic className="w-12 h-12 mx-auto text-slate-300 mb-3" />
+        <div className="stripe-card p-12 bg-white text-center text-slate-600">
+          <Mic className="w-12 h-12 mx-auto text-slate-600 mb-3" />
           <h3 className="text-sm font-bold text-slate-700 mb-1">발표 자료 및 대본이 필요합니다</h3>
-          <p className="text-xs text-slate-400 mb-4 max-w-sm mx-auto">
+          <p className="text-xs text-slate-600 mb-4 max-w-sm mx-auto">
             [발표 준비] 메뉴에서 슬라이드 대본을 먼저 생성한 후 실전 연습실을 이용하실 수 있습니다.
           </p>
           <Link href="/presentation" className="stripe-pill-btn mx-auto">

@@ -113,7 +113,7 @@ export function KanbanBoard({ tasks, members, onTaskStatusChange, onAddTask }: K
                         </span>
                         <span className="font-medium text-slate-700">{task.assigneeName}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-slate-400">
+                      <div className="flex items-center gap-1 text-slate-600">
                         <Calendar className="w-3 h-3" />
                         <span>{task.deadline}</span>
                       </div>
@@ -123,7 +123,7 @@ export function KanbanBoard({ tasks, members, onTaskStatusChange, onAddTask }: K
               })}
 
               {colTasks.length === 0 && (
-                <div className="h-24 border border-dashed border-slate-200 rounded-xl flex items-center justify-center text-xs text-slate-400">
+                <div className="h-24 border border-dashed border-slate-200 rounded-xl flex items-center justify-center text-xs text-slate-600">
                   작업 없음
                 </div>
               )}

@@ -76,7 +76,7 @@ export default function SettingsPage() {
               </div>
               <div>
                 <h3 className="font-bold text-xs text-slate-900">Google Gemini API Key 연동</h3>
-                <p className="text-[11px] text-slate-400">직접 발급받은 Gemini API 키를 연결할 수 있습니다.</p>
+                <p className="text-[11px] text-slate-600">직접 발급받은 Gemini API 키를 연결할 수 있습니다.</p>
               </div>
             </div>
 
@@ -98,8 +98,8 @@ export default function SettingsPage() {
               placeholder="AIzaSy..."
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-mono focus:bg-white focus:border-emerald-500 focus:outline-none"
             />
-            <p className="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
-              <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <p className="text-[11px] text-slate-600 mt-1.5 flex items-center gap-1">
+              <Info className="w-3.5 h-3.5 text-slate-600 shrink-0" />
               <span>
                 API 키를 입력하지 않아도 고품질 내장 컨텍스트 스마트 엔진이 100% 정상 작동합니다.
               </span>
@@ -131,7 +131,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <h3 className="font-bold text-xs text-slate-900">사용자 프로필 정보</h3>
-              <p className="text-[11px] text-slate-400">보고서 및 팀원 표시에 활용됩니다.</p>
+              <p className="text-[11px] text-slate-600">보고서 및 팀원 표시에 활용됩니다.</p>
             </div>
           </div>
 

@@ -31,7 +31,7 @@ export function InviteModal({ project, onClose }: InviteModalProps) {
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 text-slate-600 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -58,7 +58,7 @@ export function InviteModal({ project, onClose }: InviteModalProps) {
             </label>
             <div className="flex items-center gap-2">
               <div className="flex-1 flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs text-slate-700 font-mono truncate">
-                <LinkIcon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <LinkIcon className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                 <span className="truncate">{inviteLink}</span>
               </div>
               <button
@@ -78,7 +78,7 @@ export function InviteModal({ project, onClose }: InviteModalProps) {
             </label>
             <div className="flex items-center gap-2">
               <div className="flex-1 flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs text-slate-800 font-bold tracking-wider font-mono">
-                <Key className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <Key className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                 <span>{project.inviteCode}</span>
               </div>
               <button
@@ -100,7 +100,7 @@ export function InviteModal({ project, onClose }: InviteModalProps) {
               <span key={m.id} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-xs text-slate-700">
                 <span className={`w-2 h-2 rounded-full ${m.avatarColor || 'bg-emerald-500'}`}></span>
                 <span className="font-medium">{m.name}</span>
-                <span className="text-[10px] text-slate-400">({m.role})</span>
+                <span className="text-[10px] text-slate-600">({m.role})</span>
               </span>
             ))}
           </div>

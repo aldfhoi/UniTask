@@ -132,7 +132,7 @@ export default function AssignmentsPage() {
 
         {/* Demo Samples Selector */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-slate-400">샘플 불러오기:</span>
+          <span className="text-xs font-semibold text-slate-600">샘플 불러오기:</span>
           <button
             onClick={() => {
               setInputText(SAMPLE_ASSIGNMENTS[0].text);
@@ -166,11 +166,11 @@ export default function AssignmentsPage() {
 
             {/* File Dropzone */}
             <label className="border-2 border-dashed border-slate-200 hover:border-emerald-400 rounded-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-all bg-slate-50/50 hover:bg-emerald-50/30 group">
-              <UploadCloud className="w-8 h-8 text-slate-400 group-hover:text-emerald-600 transition-colors mb-2" />
+              <UploadCloud className="w-8 h-8 text-slate-600 group-hover:text-emerald-600 transition-colors mb-2" />
               <p className="text-xs font-bold text-slate-700 group-hover:text-emerald-800">
                 PDF, PPT, DOCX, TXT 파일 드래그 또는 클릭
               </p>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-slate-600 mt-0.5">
                 강의 공지문이나 교수님 과제 PDF를 올려주세요
               </p>
               <input
@@ -183,7 +183,7 @@ export default function AssignmentsPage() {
 
             {/* Text Input Fallback */}
             <div>
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
                 과제 안내문 직접 입력
               </label>
               <textarea
@@ -244,15 +244,15 @@ export default function AssignmentsPage() {
               {/* Basic Meta Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">제출 형식</span>
+                  <span className="text-[10px] text-slate-600 font-bold uppercase">제출 형식</span>
                   <p className="font-semibold text-slate-800 mt-0.5">{analysisResult.format}</p>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">분량 기준</span>
+                  <span className="text-[10px] text-slate-600 font-bold uppercase">분량 기준</span>
                   <p className="font-semibold text-slate-800 mt-0.5">{analysisResult.pageLength}</p>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">과제 유형</span>
+                  <span className="text-[10px] text-slate-600 font-bold uppercase">과제 유형</span>
                   <p className="font-semibold text-slate-800 mt-0.5">{analysisResult.isTeam ? '팀 프로젝트 (협업)' : '개인 과제'}</p>
                 </div>
               </div>
@@ -347,12 +347,12 @@ export default function AssignmentsPage() {
               </div>
             </div>
           ) : (
-            <div className="stripe-card p-12 bg-white flex flex-col items-center justify-center text-center text-slate-400 h-[480px]">
-              <Sparkles className="w-12 h-12 text-slate-300 mb-3" />
+            <div className="stripe-card p-12 bg-white flex flex-col items-center justify-center text-center text-slate-600 h-[480px]">
+              <Sparkles className="w-12 h-12 text-slate-600 mb-3" />
               <h4 className="text-sm font-bold text-slate-700 mb-1">
                 과제 안내문을 입력하고 분석을 시작하세요
               </h4>
-              <p className="text-xs text-slate-400 max-w-sm">
+              <p className="text-xs text-slate-600 max-w-sm">
                 교수님의 과제 안내문이나 PDF를 업로드한 후 [AI 과제 분석 시작] 버튼을 누르면 자동으로 핵심 요구사항과 일정표를 구성해 드립니다.
               </p>
             </div>

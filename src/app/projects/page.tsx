@@ -72,7 +72,7 @@ export default function ProjectsListPage() {
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
@@ -91,8 +91,8 @@ export default function ProjectsListPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="stripe-card p-12 text-center text-slate-400">
-          <BookOpen className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+        <div className="stripe-card p-12 text-center text-slate-600">
+          <BookOpen className="w-10 h-10 mx-auto text-slate-600 mb-2" />
           <p className="text-xs font-semibold text-slate-600">일치하는 프로젝트가 없습니다.</p>
         </div>
       )}
