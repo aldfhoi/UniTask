@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniTask AI | 대학생 과제·팀프로젝트 통합 AI 워크스페이스</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18, ReactDOM & Babel for zero-config single file browser execution -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .stripe-bg-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
+    }
+
+    .stripe-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stripe-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      transform: translateY(-1px);
+    }
+
+    .stripe-pill-btn {
+      background-color: #059669;
+      color: #ffffff !important;
+      border-radius: 9999px;
+      padding: 0.6rem 1.3rem;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.25);
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .stripe-pill-btn:hover {
+      background-color: #047857;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
+      transform: translateY(-0.5px);
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const INITIAL_PROJECTS = [
+      {
+        id: 'proj-1',
+        title: '차세대 2차전지 양극재 기술 동향 및 시장 분석',
+        course: '에너지신소재공학',
+        type: 'team',
+        progress: 65,
+        deadline: '2026-08-26',
+        dDay: 'D-7',
+        currentTask: '논문 자료 정리 및 실증 사례 분석',
+        description: 'NCM/LFP 및 전고체 배터리용 고에너지 밀도 양극재의 최신 기술 트렌드와 국내외 밸류체인 경쟁력 심층 분석',
+        inviteCode: 'BATTERY-2026',
+        members: [
+          { id: 'm-1', name: '이예서 (팀장)', role: '총괄 및 해결방안', email: 'yeseo@univ.ac.kr', avatarColor: 'bg-emerald-600' },
+          { id: 'm-2', name: '김민준', role: '시장 동향 & 기술 분석', email: 'minjun@univ.ac.kr', avatarColor: 'bg-blue-600' },
+          { id: 'm-3', name: '박서현', role: '국내외 사례 & PPT 제작', email: 'seohyun@univ.ac.kr', avatarColor: 'bg-indigo-600' },
+          { id: 'm-4', name: '정우진', role: '원가 분석 & 발표', email: 'woojin@univ.ac.kr', avatarColor: 'bg-purple-600' },
+        ],
+        tasks: [
+          { id: 't-1', title: '국내외 고용량 하이니켈 NCM 학술 논문 3편 분석', assigneeName: '김민준', status: 'done', deadline: '08/15', priority: 'high' },
+          { id: 't-2', title: '글로벌 LFP 대비 NCM 원가 경쟁력 비교표 작성', assigneeName: '정우진', status: 'done', deadline: '08/17', priority: 'medium' },
+          { id: 't-3', title: '국내 3사(LG엔솔, 삼성SDI, SK온) 양극재 로드맵 조사', assigneeName: '박서현', status: 'in_progress', deadline: '08/21', priority: 'high' },
+          { id: 't-4', title: '기술적 한계점(열화 현상, 열폭주) 및 안정성 해결 방안 정리', assigneeName: '이예서 (팀장)', status: 'in_progress', deadline: '08/22', priority: 'high' },
+          { id: 't-5', title: '중간 보고서 및 10장 규모 PPT 슬라이드 초안 구성', assigneeName: '박서현', status: 'todo', deadline: '08/24', priority: 'medium' },
+          { id: 't-6', title: '발표 대본 완성 및 AI 시뮬레이터 실전 연습', assigneeName: '정우진', status: 'todo', deadline: '08/25', priority: 'high' },
+        ]
+      },
+      {
+        id: 'proj-2',
+        title: '생성형 AI 시대의 플랫폼 비즈니스 모델 혁신 연구',
+        course: '경영정보시스템',
+        type: 'personal',
+        progress: 40,
+        deadline: '2026-08-30',
+        dDay: 'D-11',
+        currentTask: '해외 SaaS 기업 AI 수익화 사례 비교',
+        description: 'LLM 및 멀티모달 AI를 도입한 글로벌 플랫폼 기업들의 수익 모델 다변화 전략 분석',
+        inviteCode: 'MIS-PERSONAL',
+        members: [{ id: 'm-1', name: '이예서', role: '작성자', email: 'yeseo@univ.ac.kr', avatarColor: 'bg-emerald-600' }],
+        tasks: [
+          { id: 't-201', title: 'OpenAI, Anthropic, Notion의 B2B 과금 모델 비교표 작성', assigneeName: '이예서', status: 'done', deadline: '08/16', priority: 'high' },
+          { id: 't-202', title: '국내 AI 스타트업(업스테이지, 뤼튼 등) 수익 모델 인터뷰 기사 정리', assigneeName: '이예서', status: 'in_progress', deadline: '08/23', priority: 'medium' },
+          { id: 't-203', title: '플랫폼 전환 비용과 네트워크 효과 분석 작성', assigneeName: '이예서', status: 'todo', deadline: '08/27', priority: 'high' },
+        ]
+      }
+    ];
+
+    const INITIAL_RESOURCES = [
+      {
+        id: 'res-1',
+        title: '하이니켈 NCM 양극재 열화 메커니즘 및 도핑 개질 연구.pdf',
+        fileType: 'pdf',
+        uploaderName: '김민준',
+        uploadDate: '2026-08-14',
+        summary: 'Ni 함량 90% 이상 고용량 양극재에서 발생하는 미세 균열 발생 원인과 Zr/Al 코팅을 통한 열화 억제 기법을 실험적으로 입증함. 300사이클 후 용량 유지율 89.2% 달성.',
+        keywords: ['하이니켈 NCM', '미세 균열', '열안정성', '표면 코팅', '용량 유지율'],
+        evidencePoints: ['Ni 비율 80%->90% 증가 시 체적 수축율 2.4배 증가', 'Zr 도핑 시 사이클 수명 25% 향상'],
+        sourceCitation: 'Journal of Power Sources (2025)',
+        matchedSection: '본론 2장: 핵심 기술적 한계 및 극복 방안'
+      },
+      {
+        id: 'res-2',
+        title: '글로벌 LFP vs NCM 배터리 제조원가 및 공급망 전망.pdf',
+        fileType: 'pdf',
+        uploaderName: '정우진',
+        uploadDate: '2026-08-16',
+        summary: '2026년 기준 팩 단위 단가 비교(LFP: $68/kWh, NCM: $89/kWh). 리튬/니켈 가격 변동성에 따른 원가 마진율과 글로벌 완성차 업체의 소재 로드맵 수록.',
+        keywords: ['LFP 배터리', 'kWh당 제조단가', '원자재 공급망', 'CATL'],
+        evidencePoints: ['LFP는 NCM 대비 23% 저렴하나 에너지밀도 30% 낮음', '니켈 가격 변동 시 NCM 원가 민감도 1.8배'],
+        sourceCitation: 'BloombergNEF (2026)',
+        matchedSection: '본론 1장: 소재별 경제성 및 원가 비교'
+      },
+      {
+        id: 'res-3',
+        title: '고에너지밀도 양극재 표면 코팅 기술 동향 보고서.docx',
+        fileType: 'docx',
+        uploaderName: '박서현',
+        uploadDate: '2026-08-17',
+        summary: '하이니켈 배터리의 수명 연장을 위한 건식/습식 코팅 공정 비교. 김민준 팀원의 논문과 유사하게 양극재 열화 방지 코팅제를 다루고 있음.',
+        keywords: ['건식 코팅', '열화 방지', '양극재 안정화'],
+        evidencePoints: ['건식 코팅 공정 도입 시 전극 제조 단가 12% 절감'],
+        sourceCitation: '한국에너지기술연구원 (2026)',
+        matchedSection: '본론 2장: 제조 공정 혁신 방안'
+      }
+    ];
+
+    const INITIAL_DECK = {
+      totalSlides: 6,
+      estimatedTotalSeconds: 435,
+      slides: [
+        { slideNumber: 1, slideTitle: '표지 및 팀원 소개', script: '안녕하십니까. 에너지신소재공학 3조 발표를 맡은 정우진입니다. 저희 팀은 "차세대 2차전지 양극재 기술 동향 및 시장 분석"을 주제로 발표를 준비했습니다.', estimatedSeconds: 45, speakerName: '정우진' },
+        { slideNumber: 2, slideTitle: '연구 배경: 왜 다시 양극재 혁신인가?', script: '현재 글로벌 배터리 시장은 LFP의 저가 공세와 에너지 밀도의 한계가 공존하는 전환점입니다. 주행거리 확보를 위해 하이니켈 NCM 고도화가 필수적입니다.', estimatedSeconds: 65, speakerName: '김민준' },
+        { slideNumber: 3, slideTitle: '핵심 기술적 난제: 하이니켈 열화 메커니즘', script: '니켈 함량을 90% 이상으로 높이면 체적 수축율이 2.4배 증가하면서 미세 균열이 발생하고 수명이 급격히 저하되는 문제가 발생합니다.', estimatedSeconds: 80, speakerName: '김민준' },
+        { slideNumber: 4, slideTitle: '돌파구: 나노 표면 코팅 & Zr 도핑 공정', script: '저희 팀이 분석한 핵심 돌파구는 Zr 도핑을 통해 격자 스트레인을 45% 완화하고 300사이클 후에도 89.2%의 높은 용량 유지율을 확보하는 솔루션입니다.', estimatedSeconds: 75, speakerName: '이예서 (팀장)' },
+        { slideNumber: 5, slideTitle: '경제성 분석: 건식 공정 도입 원가 절감', script: '한국에너지기술연구원 분석에 따르면 건식 코팅 공정 도입 시 용매 건조 공정이 생략되어 전극 제조 단가를 약 12% 절감할 수 있습니다.', estimatedSeconds: 70, speakerName: '박서현' },
+        { slideNumber: 6, slideTitle: '결론 및 질의응답 (Q&A)', script: '이상으로 발표를 마치고 교수님과 학우 여러분의 질문을 받도록 하겠습니다. 경청해 주셔서 감사합니다.', estimatedSeconds: 50, speakerName: '정우진' }
+      ]
+    };
+
+    function App() {
+      const [currentTab, setCurrentTab] = useState('dashboard');
+      const [projects, setProjects] = useState(INITIAL_PROJECTS);
+      const [activeProjectId, setActiveProjectId] = useState('proj-1');
+      const [resources, setResources] = useState(INITIAL_RESOURCES);
+      const [deck, setDeck] = useState(INITIAL_DECK);
+      const [toast, setToast] = useState(null);
+
+      const showToast = (title, msg) => {
+        setToast({ title, msg });
+        setTimeout(() => setToast(null), 3000);
+      };
+
+      const activeProj = projects.find(p => p.id === activeProjectId) || projects[0];
+
+      return (
+        <div className="flex min-h-screen">
+          {/* Sidebar */}
+          <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-30 select-none shadow-xs">
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-indigo-600 flex items-center justify-center text-white shadow-sm font-black text-sm">
+                  🎓
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-extrabold text-base text-slate-900 tracking-tight">UniTask</span>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">AI</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-semibold">대학생 과제·팀플 워크스페이스</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Selected Project */}
+            <div className="px-4 py-3 border-b border-slate-200/80 bg-slate-50">
+              <div className="flex items-center justify-between text-[11px] text-slate-600 mb-1 font-bold">
+                <span>선택된 프로젝트</span>
+                <span className="text-emerald-700 font-extrabold">{activeProj.progress}%</span>
+              </div>
+              <div className="p-2 rounded-lg bg-white border border-slate-200 shadow-xs">
+                <p className="text-xs font-bold text-slate-900 truncate">{activeProj.title}</p>
+                <div className="w-full bg-slate-100 rounded-full h-1.5 mt-1.5 overflow-hidden">
+                  <div className="bg-emerald-500 h-1.5 rounded-full" style={{ width: `${activeProj.progress}%` }}></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Nav Items */}
+            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+              {[
+                { id: 'dashboard', label: '🏠 대시보드' },
+                { id: 'assignments', label: '📝 과제 분석 AI', badge: 'AI' },
+                { id: 'workspace', label: '👥 팀 워크스페이스' },
+                { id: 'resources', label: '📁 자료 관리 & AI 정리', badge: 'AI' },
+                { id: 'assistant', label: '🤖 AI 프로젝트 어시스턴트', badge: 'RAG' },
+                { id: 'presentation', label: '🎤 발표 준비 & 대본' },
+                { id: 'practice', label: '🏆 AI 발표 연습 & 평가', badge: '실전' },
+                { id: 'settings', label: '⚙️ 설정' }
+              ].map(item => (
+                <button
+                  key={item.id}
+                  onClick={() => setCurrentTab(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left ${
+                    currentTab === item.id
+                      ? 'bg-emerald-100 text-emerald-900 font-extrabold border border-emerald-300'
+                      : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${
+                      currentTab === item.id ? 'bg-emerald-700 text-white' : 'bg-indigo-100 text-indigo-800'
+                    }`}>
+                      {item.badge}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </nav>
+
+            <div className="p-3 border-t border-slate-200">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-50 to-emerald-50 border border-indigo-200 text-[11px] text-slate-700 font-medium">
+                💡 <strong>단독 index.html</strong>로 언제 어디서든 바로 실행 가능합니다.
+              </div>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex-1 ml-64 flex flex-col min-h-screen">
+            <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-6 shadow-xs">
+              <select
+                value={activeProjectId}
+                onChange={(e) => setActiveProjectId(e.target.value)}
+                className="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold text-slate-900"
+              >
+                {projects.map(p => (
+                  <option key={p.id} value={p.id}>{p.title} ({p.course})</option>
+                ))}
+              </select>
+
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  오프라인 독립 실행 파일
+                </span>
+                <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-xs">이</div>
+                  <span className="text-xs font-bold text-slate-900">이예서 (팀장)</span>
+                </div>
+              </div>
+            </header>
+
+            <main className="flex-1 p-6 md:p-8 stripe-bg-grid max-w-7xl">
+              {currentTab === 'dashboard' && <DashboardView projects={projects} activeProj={activeProj} onNavigate={setCurrentTab} showToast={showToast} />}
+              {currentTab === 'assignments' && <AssignmentView onNavigate={setCurrentTab} showToast={showToast} />}
+              {currentTab === 'workspace' && <WorkspaceView project={activeProj} showToast={showToast} />}
+              {currentTab === 'resources' && <ResourcesView resources={resources} showToast={showToast} />}
+              {currentTab === 'assistant' && <AssistantView project={activeProj} resources={resources} />}
+              {currentTab === 'presentation' && <PresentationView deck={deck} setDeck={setDeck} onNavigate={setCurrentTab} showToast={showToast} />}
+              {currentTab === 'practice' && <PracticeView deck={deck} showToast={showToast} />}
+              {currentTab === 'settings' && <SettingsView showToast={showToast} />}
+            </main>
+          </div>
+
+          {toast && (
+            <div className="fixed bottom-5 right-5 z-50 p-4 rounded-2xl bg-slate-900 text-white text-xs font-bold shadow-2xl animate-bounce">
+              <span className="text-emerald-400 font-extrabold">✓ {toast.title}</span> - {toast.msg}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Views
+    function DashboardView({ projects, activeProj, onNavigate, showToast }) {
+      const [todos, setTodos] = useState([
+        { id: 1, text: '하이니켈 NCM 양극재 관련 논문 2개 AI 요약 검토', done: true, course: '에너지신소재공학' },
+        { id: 2, text: '정우진 팀원의 원가 비교표 자료 검토 및 코멘트', done: false, course: '에너지신소재공학' },
+        { id: 3, text: '발표자료(PPT) 5~8페이지 초안 작성', done: false, course: '에너지신소재공학' },
+        { id: 4, text: 'AI 발표 연습 시뮬레이터로 예상 질문 10개 확인', done: false, course: '도시계획학개론' }
+      ]);
+
+      return (
+        <div className="space-y-8">
+          <div className="rounded-3xl border border-slate-200 bg-white p-7 md:p-9 relative overflow-hidden shadow-sm">
+            <div className="max-w-2xl relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-extrabold border border-emerald-200 mb-3">
+                ✨ 대학생 전용 통합 AI 워크스페이스
+              </div>
+              <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-slate-900 mb-2.5">
+                과제 시작부터 발표까지, <span className="text-emerald-600">AI와 함께.</span>
+              </h1>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed mb-6">
+                과제를 분석하고, 팀원과 협업하고, 발표까지 준비하세요. 교수님의 요구사항 분석부터 AI 실전 발표 연습까지 원스톱으로 지원합니다.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <button onClick={() => onNavigate('assignments')} className="stripe-pill-btn">
+                  새 과제 AI 분석하기 ➔
+                </button>
+                <button onClick={() => onNavigate('practice')} className="px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs border border-slate-300">
+                  🎤 AI 발표 연습 시작
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-8 space-y-4">
+              <h2 className="text-base font-extrabold text-slate-900">진행 중인 프로젝트 ({projects.length})</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {projects.map(p => (
+                  <div key={p.id} className="stripe-card p-5 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800">{p.course}</span>
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">{p.dDay}</span>
+                      </div>
+                      <h3 className="font-black text-slate-900 text-sm">{p.title}</h3>
+                      <p className="text-xs text-slate-600 mt-1 line-clamp-2">{p.description}</p>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100">
+                      <div className="flex justify-between text-xs font-bold mb-1">
+                        <span className="text-slate-500">진행률</span>
+                        <span className="text-emerald-700">{p.progress}%</span>
+                      </div>
+                      <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-3">
+                        <div className="bg-emerald-500 h-2 rounded-full" style={{ width: `${p.progress}%` }}></div>
+                      </div>
+                      <button onClick={() => onNavigate('workspace')} className="text-xs font-bold text-emerald-700 hover:underline">
+                        워크스페이스 열기 ➔
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 space-y-4">
+              <div className="stripe-card p-5">
+                <h3 className="font-extrabold text-xs text-slate-900 mb-3">⚡ 오늘 할 일 (AI 추천)</h3>
+                <div className="space-y-2">
+                  {todos.map(t => (
+                    <div key={t.id} onClick={() => setTodos(todos.map(item => item.id === t.id ? { ...item, done: !item.done } : item))} className={`p-2.5 rounded-xl border cursor-pointer text-xs ${t.done ? 'bg-slate-50 text-slate-400 line-through' : 'bg-white text-slate-800 font-semibold border-slate-200'}`}>
+                      <input type="checkbox" checked={t.done} readOnly className="mr-2" />
+                      {t.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function AssignmentView({ onNavigate, showToast }) {
+      const [analyzed, setAnalyzed] = useState(false);
+      return (
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-xl font-black text-slate-900">📝 과제 안내문 AI 심층 분석</h1>
+            <p className="text-xs text-slate-600 mt-1">교수님 과제 공지글 또는 PDF를 입력하면 필수 요구사항과 9단계 작업 계획을 자동 추출합니다.</p>
+          </div>
+
+          <div className="stripe-card p-6 bg-white space-y-4">
+            <textarea
+              rows={5}
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono"
+              defaultValue="[2026-2학기 에너지신소재공학 기말 팀프로젝트]&#10;과제: 차세대 2차전지 양극재 기술 동향 및 시장 분석&#10;요구사항: 1. NCM622 대비 하이니켈(Ni 90%) 장단점 비교 2. LFP 배터리와 원가/안전성 비교표 3. 코팅 및 도핑 공정 개선안&#10;주의사항: KCI/SCI 논문 7편 이상 필수 인용, 팀원 기여도 명시"
+            />
+            <button onClick={() => { setAnalyzed(true); showToast('AI 분석 완료', '요구사항 및 9단계 체크리스트가 생성되었습니다.'); }} className="stripe-pill-btn">
+              ✨ AI 과제 분석 실행
+            </button>
+          </div>
+
+          {analyzed && (
+            <div className="stripe-card p-6 bg-white space-y-4 animate-in fade-in">
+              <span className="text-xs font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">AI 분석 결과</span>
+              <h3 className="text-base font-black text-slate-900">차세대 2차전지 양극재 기술 동향 및 시장 분석</h3>
+              <div className="p-3 bg-emerald-50 rounded-xl text-xs font-medium text-emerald-950 border border-emerald-200">
+                ✓ <strong>교수님 필수 요구사항:</strong> 하이니켈 기술적 한계 분석, LFP 원가 비교표, 코팅/도핑 해결책 제시
+              </div>
+              <div className="p-3 bg-amber-50 rounded-xl text-xs font-medium text-amber-950 border border-amber-200">
+                ⚠️ <strong>감점 방지 주의사항:</strong> 참고문헌 7개 이상 필수 인용, 표절 검사 감점 유의
+              </div>
+              <button onClick={() => onNavigate('workspace')} className="stripe-pill-btn">
+                이 분석으로 프로젝트 생성 및 워크스페이스 이동 ➔
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function WorkspaceView({ project, showToast }) {
+      const [tasks, setTasks] = useState(project.tasks);
+      return (
+        <div className="space-y-6">
+          <div className="stripe-card p-6 flex justify-between items-center">
+            <div>
+              <span className="text-xs font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-700">{project.course}</span>
+              <h1 className="text-xl font-black text-slate-900 mt-1">{project.title}</h1>
+              <p className="text-xs text-slate-600 mt-0.5">{project.description}</p>
+            </div>
+            <button onClick={() => { navigator.clipboard.writeText('https://unitask.ai/join/' + project.inviteCode); showToast('초대 링크 복사', '팀원 초대 링크가 복사되었습니다!'); }} className="stripe-pill-btn">
+              👥 팀원 초대 링크 복사
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {['todo', 'in_progress', 'review', 'done'].map(status => (
+              <div key={status} className="bg-slate-100 rounded-2xl p-4 min-h-[300px]">
+                <h4 className="font-extrabold text-xs uppercase text-slate-700 mb-3">{status.toUpperCase()}</h4>
+                <div className="space-y-2">
+                  {tasks.filter(t => t.status === status).map(t => (
+                    <div key={t.id} className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs text-xs">
+                      <p className="font-bold text-slate-900">{t.title}</p>
+                      <div className="flex justify-between items-center mt-2 text-[10px] text-slate-500 font-bold">
+                        <span>👤 {t.assigneeName}</span>
+                        <select value={t.status} onChange={(e) => setTasks(tasks.map(item => item.id === t.id ? { ...item, status: e.target.value } : item))} className="bg-slate-50 border rounded px-1">
+                          <option value="todo">To Do</option>
+                          <option value="in_progress">In Progress</option>
+                          <option value="review">Review</option>
+                          <option value="done">Done</option>
+                        </select>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ResourcesView({ resources, showToast }) {
+      return (
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-xl font-black text-slate-900">📁 팀원 자료 관리 & AI 종합 정리</h1>
+              <p className="text-xs text-slate-600 mt-1">팀원들이 업로드한 논문과 PDF를 분석하여 중복을 감지하고 최적의 목차를 추천합니다.</p>
+            </div>
+            <button onClick={() => showToast('자료 업로드', '새 학술 자료가 등록되었습니다.')} className="stripe-pill-btn">
+              + 새 자료 업로드
+            </button>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 font-medium">
+            ⚠️ <strong>AI 중복 자료 발견 알림:</strong> 김민준 팀원과 박서현 팀원의 자료가 [표면 코팅 및 열화 억제 기법]에 대해 약 65% 중복 조사되었습니다.<br />
+            💡 <strong>AI 권장:</strong> 김민준 팀원은 실험 물성 데이터에, 박서현 팀원은 공정 단가 절감 효과로 분담하는 것을 추천합니다.
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {resources.map(r => (
+              <div key={r.id} className="stripe-card p-5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-700">{r.fileType.toUpperCase()}</span>
+                  <h3 className="font-bold text-sm text-slate-900 mt-1">{r.title}</h3>
+                  <p className="text-[11px] text-slate-500 mt-0.5">업로더: {r.uploaderName} · {r.uploadDate}</p>
+                  <div className="p-3 bg-slate-50 rounded-xl mt-3 text-xs text-slate-700">
+                    <span className="font-bold text-slate-500 text-[10px] block uppercase mb-1">AI 핵심 요약</span>
+                    {r.summary}
+                  </div>
+                </div>
+                <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-emerald-700 font-bold">
+                  추천 챕터: {r.matchedSection}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function AssistantView({ project, resources }) {
+      const [messages, setMessages] = useState([
+        { sender: 'ai', text: `안녕하세요 이예서님! [${project.title}] 프로젝트 AI 튜터입니다. 업로드된 자료 3건과 과제 지침을 기반으로 무엇이든 질문하세요.` }
+      ]);
+      const [input, setInput] = useState('');
+
+      const send = () => {
+        if (!input.trim()) return;
+        const newMsgs = [...messages, { sender: 'user', text: input }];
+        setMessages(newMsgs);
+        setInput('');
+
+        setTimeout(() => {
+          setMessages([...newMsgs, {
+            sender: 'ai',
+            text: `업로드된 [${resources.map(r => r.title).join(', ')}] 자료를 분석한 결과, 서론의 문제 정의와 본론의 하이니켈 열화 메커니즘 분석이 매우 우수합니다.\n\n추가로 폐배터리 리사이클링 및 2026 완성차 양산 적용 사례를 1~2문장 보강하시면 A+ 과제가 됩니다.`
+          }]);
+        }, 500);
+      };
+
+      return (
+        <div className="space-y-4">
+          <h1 className="text-xl font-black text-slate-900">🤖 프로젝트 전용 AI 어시스턴트</h1>
+          <div className="stripe-card p-5 h-[380px] overflow-y-auto space-y-3">
+            {messages.map((m, i) => (
+              <div key={i} className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`p-3.5 rounded-2xl max-w-xl text-xs leading-relaxed ${m.sender === 'user' ? 'bg-slate-900 text-white font-medium' : 'bg-slate-100 text-slate-900 font-medium'}`}>
+                  {m.text}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()} placeholder="과제에 관해 무엇이든 물어보세요..." className="flex-1 p-3 bg-white border border-slate-200 rounded-xl text-xs" />
+            <button onClick={send} className="stripe-pill-btn">전송</button>
+          </div>
+        </div>
+      );
+    }
+
+    function PresentationView({ deck, setDeck, onNavigate }) {
+      return (
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-xl font-black text-slate-900">🎤 발표 준비 & 슬라이드별 대본 생성</h1>
+              <p className="text-xs text-slate-600 mt-1">총 예상 발표 시간: <strong>7분 15초</strong> (총 6개 슬라이드)</p>
+            </div>
+            <button onClick={() => onNavigate('practice')} className="stripe-pill-btn">
+              🏆 AI 실전 발표 연습실 입장 ➔
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            {deck.slides.map(s => (
+              <div key={s.slideNumber} className="stripe-card p-5 space-y-2">
+                <div className="flex justify-between items-center border-b pb-2">
+                  <span className="text-xs font-black bg-slate-900 text-white px-2 py-0.5 rounded">Slide {s.slideNumber} - {s.slideTitle}</span>
+                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">⏱ {s.estimatedSeconds}초 (담당: {s.speakerName})</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-800 font-medium leading-relaxed">
+                  "{s.script}"
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function PracticeView({ deck, showToast }) {
+      const [slideIdx, setSlideIdx] = useState(0);
+      const [showModal, setShowModal] = useState(false);
+      const current = deck.slides[slideIdx];
+
+      return (
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-xl font-black text-slate-900">🏆 AI 실전 발표 연습 & 6대 지표 평가</h1>
+              <p className="text-xs text-slate-600 mt-1">교수님 질문 모드로 발표를 시뮬레이션하고 맞춤형 평가 리포트를 받아보세요.</p>
+            </div>
+            <button onClick={() => { setShowModal(true); confetti(); }} className="stripe-pill-btn">
+              발표 완료 및 AI 평가 보기
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-7 stripe-card p-6 space-y-4">
+              <span className="text-xs font-bold text-slate-500">Slide {current.slideNumber} / {deck.slides.length}</span>
+              <h2 className="text-lg font-black text-slate-900">{current.slideTitle}</h2>
+              <div className="p-4 bg-slate-50 rounded-2xl border text-xs text-slate-800 font-medium leading-relaxed">
+                "{current.script}"
+              </div>
+              <div className="flex justify-between pt-4">
+                <button disabled={slideIdx === 0} onClick={() => setSlideIdx(slideIdx - 1)} className="px-3 py-1.5 rounded-xl border text-xs font-bold">이전</button>
+                <button disabled={slideIdx === deck.slides.length - 1} onClick={() => setSlideIdx(slideIdx + 1)} className="px-3 py-1.5 rounded-xl border text-xs font-bold">다음</button>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 stripe-card p-6 space-y-3">
+              <span className="text-xs font-bold px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded">👨‍🏫 교수님 돌발 질문 모드</span>
+              <div className="p-3 bg-indigo-50 rounded-xl text-xs text-indigo-950 font-bold">
+                "Zr 도핑 시 300사이클 수명 유지율 89.2%를 달성했다고 하셨는데, 양산 공정에서의 단가 상승 요인은 어떻게 고려하셨나요?"
+              </div>
+              <textarea rows={4} placeholder="답변을 입력하거나 말씀하세요..." className="w-full p-2.5 bg-slate-50 border rounded-xl text-xs"></textarea>
+              <button onClick={() => showToast('답변 기록', '교수님 질문 답변이 저장되었습니다.')} className="stripe-pill-btn w-full justify-center">답변 제출</button>
+            </div>
+          </div>
+
+          {showModal && (
+            <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center p-4 z-50 animate-in fade-in">
+              <div className="bg-white rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+                <h3 className="text-lg font-black text-slate-900">🎉 AI 발표 종합 평가 리포트</h3>
+                <div className="p-3 bg-emerald-50 rounded-xl text-xs font-bold text-emerald-800">
+                  종합 발표 준비도: 88% (A+ 우수)
+                </div>
+                <div className="space-y-1.5 text-xs">
+                  <p className="text-rose-700 font-bold">🔴 [우선 개선] Slide 3 열폭주 위험 질문 시 구체적 BMS 안전 수치 보완 필요</p>
+                  <p className="text-emerald-700 font-bold">🟢 [잘하고 있음] 7분 15초로 권장 발표 시간을 완벽히 준수함</p>
+                </div>
+                <button onClick={() => setShowModal(false)} className="stripe-pill-btn w-full justify-center">확인 완료</button>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function SettingsView({ showToast }) {
+      return (
+        <div className="space-y-6 max-w-2xl">
+          <h1 className="text-xl font-black text-slate-900">⚙️ 환경 설정</h1>
+          <div className="stripe-card p-6 space-y-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">사용자 이름</label>
+              <input type="text" defaultValue="이예서" className="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">대학교</label>
+              <input type="text" defaultValue="한국대학교 3학년" className="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" />
+            </div>
+            <button onClick={() => showToast('설정 저장', '설정이 성공적으로 저장되었습니다.')} className="stripe-pill-btn">저장하기</button>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
